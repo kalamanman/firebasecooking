@@ -17,7 +17,7 @@ const Navbar = () => {
         const {color,changeColor,mode} =useTheme()
         
   return (
-    <div className='py-1  container 
+    <div className='py-1  container-fluid
     d-flex justify-content-end
     my-3
     align-items-center' 

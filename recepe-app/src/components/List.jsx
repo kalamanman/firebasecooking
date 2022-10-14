@@ -11,7 +11,7 @@ const {color,mode} =  useTheme()
 
     console.log(recipes)
     return (
-      <div className="container List">
+      <div className="container List min-vh-100">
         
             <div className="row my-2">
                          { recipes.map((recipe)=>(

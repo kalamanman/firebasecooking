@@ -35,7 +35,7 @@ const Home = () => {
 
   return (
 
-      <div className='min-h-100v'>
+      <div className='min-h-100v '>
         {isPending && <div> Is Loading ....</div> }
         {error && <div> could not fetch data !!</div> }
   

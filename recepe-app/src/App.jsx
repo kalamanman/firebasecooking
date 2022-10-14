@@ -16,7 +16,7 @@ function App() {
   
 
   return (
-    <div className= "App">
+    <div className= "App min-vh-100">
       <div className={`container `}>
 
  
