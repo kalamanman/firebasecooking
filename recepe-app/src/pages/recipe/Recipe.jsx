@@ -1,11 +1,11 @@
-import { useFetch } from '../../hooks/useFetch'
-import { useParams } from 'react-router-dom'
+
+import { Navigate, useParams } from 'react-router-dom'
 //styles
 import './Recipe.css'
 import { useTheme } from '../../hooks/useTheme'
 import { storeHandle } from '../../firebase/config'
 import {useState} from 'react'
-
+import deleteIcon from '../../assets/deleteIcon.svg'
 
 const Recipe = () => {
 
@@ -22,6 +22,11 @@ const Recipe = () => {
       if(!doc.exists){ setError('Could not find that recipe')}
     setRecipe(doc.data())
     })
+   }
+   const deleteRecipe =(id)=>{
+    storeHandle.collection('recipes').doc(id).delete()
+    
+    Navigate('/')
    }
    findRecipe(id)
   
@@ -47,6 +52,9 @@ const Recipe = () => {
             
             <h5 h4 className="my-1 card-subtitle ">It takes about {recipe.cookingTime} minutes to cook </h5>
             <p className="lead py-2">{recipe.method}</p>
+            <div>
+              <img src={deleteIcon} alt="" onClick={()=>deleteRecipe(id)} />
+            </div>
     </div>}
     </div>
   )

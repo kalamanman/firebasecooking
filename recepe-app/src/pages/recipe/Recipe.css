@@ -1,0 +1,17 @@
+.card{
+    position: relative;
+}
+
+.card div{
+    display: block;
+    max-width: 15px;
+    max-height: 15px;
+    position: absolute;
+    top: 0px;
+    right: 30px;
+}
+.card div img:hover {
+
+   filter: invert(80%) ;
+   cursor: pointer;
+}
