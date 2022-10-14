@@ -18,21 +18,22 @@ const Recipe = () => {
   
    const{color,mode}= useTheme()
   
-   const deleteRecipe = async(id)=>{
+   const deleteRecipe = (id)=>{
     try {
-    await storeHandle.collection('recipes').doc(id).delete()
+     storeHandle.collection('recipes').doc(id).delete()
     
     navigate('/')
     }catch(err){
-      setError(err.message)
+      console.log('some error has occured')
     }
    }
  
    useEffect(()=>{
     
      const unsub = storeHandle.collection('recipes').doc(id).onSnapshot(doc=>{
-        if(!doc.exists){ setError('Could not find that recipe')}
+        if(doc.exists){ 
       setRecipe(doc.data())
+    }
       },(err)=>setError(err.message))
      
      
