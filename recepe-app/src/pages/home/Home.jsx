@@ -14,8 +14,7 @@ const Home = () => {
 
     useEffect(()=>{
         setIsPending(true)
-        storeHandle.collection('recipes').get()
-        .then((snapshot)=>{
+     const unsub =   storeHandle.collection('recipes').onSnapshot((snapshot)=>{
           if(snapshot.empty){
             setIsPending(false)
             setError('No recipes were found')
@@ -28,7 +27,10 @@ const Home = () => {
               setRecipes(result)
           }
 
+        },(err)=>{
+          setError(err.message)
         })
+        return ()=> unsub()
     },[])
 
   return (

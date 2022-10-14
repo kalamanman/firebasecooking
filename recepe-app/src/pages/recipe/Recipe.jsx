@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import './Recipe.css'
 import { useTheme } from '../../hooks/useTheme'
 import { storeHandle } from '../../firebase/config'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import deleteIcon from '../../assets/deleteIcon.svg'
 
 const Recipe = () => {
@@ -17,19 +17,27 @@ const Recipe = () => {
      const navigate =useNavigate()
   
    const{color,mode}= useTheme()
-   const findRecipe=(id)=>{
-    storeHandle.collection('recipes').doc(id).get()
-    .then(doc=>{
-      if(!doc.exists){ setError('Could not find that recipe')}
-    setRecipe(doc.data())
-    })
-   }
+  
    const deleteRecipe = async(id)=>{
+    try {
     await storeHandle.collection('recipes').doc(id).delete()
     
     navigate('/')
+    }catch(err){
+      setError(err.message)
+    }
    }
-   findRecipe(id)
+ 
+   useEffect(()=>{
+    const findRecipe=(id)=>{
+      storeHandle.collection('recipes').doc(id).onSnapshot(doc=>{
+        if(!doc.exists){ setError('Could not find that recipe')}
+      setRecipe(doc.data())
+      },(err)=>setError(err.message))
+     }
+     findRecipe(id)
+
+   },[id])
   
 
   return (
