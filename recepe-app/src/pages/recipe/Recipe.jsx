@@ -1,5 +1,5 @@
 
-import { Navigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 //styles
 import './Recipe.css'
 import { useTheme } from '../../hooks/useTheme'
@@ -14,6 +14,7 @@ const Recipe = () => {
 
      const[recipe,setRecipe] =  useState(null)
      const[error,setError] =  useState('')
+     const navigate =useNavigate()
   
    const{color,mode}= useTheme()
    const findRecipe=(id)=>{
@@ -23,10 +24,10 @@ const Recipe = () => {
     setRecipe(doc.data())
     })
    }
-   const deleteRecipe =(id)=>{
-    storeHandle.collection('recipes').doc(id).delete()
+   const deleteRecipe = async(id)=>{
+    await storeHandle.collection('recipes').doc(id).delete()
     
-    Navigate('/')
+    navigate('/')
    }
    findRecipe(id)
   

@@ -33,11 +33,11 @@ const Home = () => {
 
   return (
 
-      <div>
+      <div className='min-h-100v'>
         {isPending && <div> Is Loading ....</div> }
         {error && <div> could not fetch data !!</div> }
   
-        {recipes && <List  recipes = {recipes}/> }
+        {recipes && <List   recipes = {recipes}/> }
         
       </div>
   )

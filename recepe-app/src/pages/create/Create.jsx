@@ -1,18 +1,17 @@
 //styles 
 import { useState,useEffect } from 'react'
-import { useFetch } from '../../hooks/useFetch'
+import { storeHandle } from '../../firebase/config'
 import { useNavigate } from 'react-router-dom'
 import  './Create.css'
 import { useTheme } from '../../hooks/useTheme'
 
-const Create = () => {
+const Create =  () => {
   const[title,setTitle] = useState('')
   const[ingredient,setIngredient] = useState('')
   const[method,setMethod] = useState('')
   const[cookingTime,setCookingTime] = useState('')
 
   const[ingredients,setIngredients] = useState([])
- const {data,error,setFetchOptions}= useFetch('http://localhost:3000/recipes','POST')
  const navigate =useNavigate()
 const {color} =useTheme()
 
@@ -26,16 +25,20 @@ const addIngredient=(e)=>{
   }
   setIngredient('')
 }
-   const  handleSubmit=(e)=>{
+   const  handleSubmit=async (e)=>{
     e.preventDefault()
-   setFetchOptions({title,method, cookingTime :cookingTime+' minutes',ingredients})
+   const recipe ={title,method, cookingTime :cookingTime+' minutes',ingredients}
+   try{
+    await storeHandle.collection('recipes').add(recipe)
+    navigate('/')
+   }catch(err){
+    console.log('err')
    }
+  
+   }
+   
 
-    useEffect(() => {
-      if(data){
-        navigate('/')
-      }
-    }, [data]);
+
 
   
   return (
