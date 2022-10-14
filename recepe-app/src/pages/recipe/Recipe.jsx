@@ -29,14 +29,14 @@ const Recipe = () => {
    }
  
    useEffect(()=>{
-    const findRecipe=(id)=>{
-      storeHandle.collection('recipes').doc(id).onSnapshot(doc=>{
+    
+     const unsub = storeHandle.collection('recipes').doc(id).onSnapshot(doc=>{
         if(!doc.exists){ setError('Could not find that recipe')}
       setRecipe(doc.data())
       },(err)=>setError(err.message))
-     }
-     findRecipe(id)
-
+     
+     
+       return ()=>unsub()
    },[id])
   
 
