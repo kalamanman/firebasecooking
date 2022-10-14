@@ -13,7 +13,7 @@ const Create =  () => {
 
   const[ingredients,setIngredients] = useState([])
  const navigate =useNavigate()
-const {color} =useTheme()
+const {color,mode} =useTheme()
 
 const addIngredient=(e)=>{
  e.preventDefault()
@@ -44,7 +44,7 @@ const addIngredient=(e)=>{
   return (
     <div   
     className='container'
-    style={{backgroundColor:color}}
+    style={{backgroundColor:mode ==='dark'?'grey':color}}
     >
       
       <form  
